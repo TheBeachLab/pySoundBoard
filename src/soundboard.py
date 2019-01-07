@@ -24,6 +24,8 @@ for i in range(rows):
     for j in range(rows):
         exec(
             f'rect_{i}{j} = pygame.Rect(spacing*(2*{i}+1), spacing*(2*{j}+1), spacing, spacing)')
+
+
 # Loop until the user clicks close button
 done = False
 while done == False:
@@ -32,7 +34,10 @@ while done == False:
         if event.type == pygame.QUIT:
             done = True
     # write game logic here
-
+    x, y = pygame.mouse.get_pos()
+    for i in range(rows):
+        for j in range(rows):
+            exec(f'if rect_{i}{j}.collidepoint(x, y):sound_{i}{j}.play()')
     # clear the screen before drawing
     screen.fill((30, 30, 30))
     # write draw code here
