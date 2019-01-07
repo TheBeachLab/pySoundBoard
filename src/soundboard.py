@@ -1,5 +1,5 @@
-# generate 100 empty sounds
-# use script generate_sounds.sh
+# Place sounds in sounds folder in sound_ij.wav format
+# being i row number and j column number (starting at 0)
 
 import pygame
 
@@ -15,7 +15,11 @@ spacing = int(size[0]/(1+2*rows))
 # generate sound objects
 for i in range(rows):
     for j in range(rows):
-        exec(f'sound_{i}{j} = pygame.mixer.Sound("sounds/sound_{i}{j}.wav")')
+        try:
+            exec(
+                f'sound_{i}{j} = pygame.mixer.Sound("sounds/sound_{i}{j}.wav")')
+        except:
+            exec(f'sound_{i}{j} = pygame.mixer.Sound("sounds/fallback.wav")')
 # initialize clock. used later in the loop.
 clock = pygame.time.Clock()
 
