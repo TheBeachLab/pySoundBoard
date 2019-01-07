@@ -10,7 +10,7 @@ size = [800, 800]
 screen = pygame.display.set_mode(size)  # , pygame.NOFRAME
 pygame.display.set_caption('pySoundBoard')
 # variables
-rows = 4  # 10 max
+rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
 # generate sound objects
 for i in range(rows):
@@ -20,6 +20,19 @@ for i in range(rows):
                 f'sound_{i}{j} = pygame.mixer.Sound("sounds/sound_{i}{j}.wav")')
         except:
             exec(f'sound_{i}{j} = pygame.mixer.Sound("sounds/fallback.wav")')
+# fonts
+fontObj = pygame.font.Font('res/Hyperspace.otf', 30)  # font object
+for i in range(rows):
+    for j in range(rows):
+        # text object
+        exec(
+            f'textObj_{i}{j} = fontObj.render(str({i})+str({j}), True, (0, 0, 0))')
+        # get the surrounding rectangle
+        exec(f'textRectObj_{i}{j} = textObj_{i}{j}.get_rect()')
+        # set the center of the rectangle
+        exec(
+            f'textRectObj_{i}{j}.center = (spacing*(2*{i}+1.5), spacing*(2*{j}+1.5))')
+
 # initialize clock. used later in the loop.
 clock = pygame.time.Clock()
 
@@ -48,6 +61,8 @@ while done == False:
     for i in range(rows):
         for j in range(rows):
             exec(f'pygame.draw.rect(screen, (150, 150, 150), rect_{i}{j})')
+            exec(f'screen.blit(textObj_{i}{j}, textRectObj_{i}{j})')
+
     # display what’s drawn. this might change.
     pygame.display.update()
     # run at 20 fps
