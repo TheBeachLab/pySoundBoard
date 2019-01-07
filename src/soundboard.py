@@ -12,6 +12,7 @@ pygame.display.set_caption('pySoundBoard')
 # variables
 rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
+print(spacing)
 # generate sound objects
 for i in range(rows):
     for j in range(rows):
@@ -21,12 +22,17 @@ for i in range(rows):
         except:
             exec(f'sound_{i}{j} = pygame.mixer.Sound("sounds/fallback.wav")')
 # fonts
-fontObj = pygame.font.Font('res/Hyperspace.otf', 30)  # font object
+fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
+logo = fontLogo.render('pySoundboard', True, (55, 55, 55))
+logoRect = logo.get_rect()
+logoRect.midright = (spacing*(2*rows), size[1]-spacing/2)
+
+fontObj = pygame.font.Font('res/Hyperspace.otf', int(spacing/2.5))
 for i in range(rows):
     for j in range(rows):
         # text object
         exec(
-            f'textObj_{i}{j} = fontObj.render(str({i})+str({j}), True, (0, 0, 0))')
+            f'textObj_{i}{j} = fontObj.render(str({i})+str({j}), False, (0, 0, 0))')
         # get the surrounding rectangle
         exec(f'textRectObj_{i}{j} = textObj_{i}{j}.get_rect()')
         # set the center of the rectangle
@@ -36,7 +42,7 @@ for i in range(rows):
 # initialize clock. used later in the loop.
 clock = pygame.time.Clock()
 
-# create rectangles
+# create rectangle
 for i in range(rows):
     for j in range(rows):
         exec(
@@ -58,6 +64,7 @@ while done == False:
     # clear the screen before drawing
     screen.fill((30, 30, 30))
     # write draw code here
+    screen.blit(logo, logoRect)
     for i in range(rows):
         for j in range(rows):
             exec(f'pygame.draw.rect(screen, (150, 150, 150), rect_{i}{j})')
