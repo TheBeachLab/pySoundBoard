@@ -19,9 +19,10 @@ for i in range(rows):
     for j in range(rows):
         try:
             exec(
-                f'sound_{i}{j} = pygame.mixer.Sound("sounds/sound_{i}{j}.wav")')
+                f'sound_{i}{j}=pygame.mixer.Sound("sounds/sound_{i}{j}.wav")')
         except:
-            exec(f'sound_{i}{j} = pygame.mixer.Sound("sounds/fallback.wav")')
+            exec(
+                f'sound_{i}{j}=pygame.mixer.Sound("/home/irix/Repositories/Beach Lab/pySoundBoard/src/sounds/fallback.wav")')
 # fonts
 fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
 logo = fontLogo.render('pySoundboard', True, (55, 55, 55))
@@ -49,7 +50,6 @@ for i in range(rows):
         exec(
             f'rect_{i}{j} = pygame.Rect(spacing*(2*{i}+1), spacing*(2*{j}+1), spacing, spacing)')
 
-
 # Loop until the user clicks close button
 done = False
 while done == False:
@@ -57,13 +57,14 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+    # clear the screen before drawing
+    screen.fill((30, 30, 30))
     # write game logic here
     x, y = pygame.mouse.get_pos()
     for i in range(rows):
         for j in range(rows):
-            exec(f'if rect_{i}{j}.collidepoint(x, y):sound_{i}{j}.play()')
-    # clear the screen before drawing
-    screen.fill((30, 30, 30))
+            exec(
+                f'if rect_{i}{j}.collidepoint(x, y):sound_{i}{j}.play();pygame.draw.rect(screen, (255,255,0), [rect_{i}{j}.x-6, rect_{i}{j}.y-6, spacing+12, spacing+12], 1)')
     # write draw code here
     screen.blit(logo, logoRect)
     for i in range(rows):
