@@ -6,3 +6,6 @@ The goal is to create something similar to [Farrago](https://rogueamoeba.com/far
 
 ![](soundboard.jpg)
 
+## Current Status
+![](screenshots/screenshot.png)
+
