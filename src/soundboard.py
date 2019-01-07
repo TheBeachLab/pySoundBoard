@@ -4,6 +4,7 @@
 import pygame
 
 # initialize game engine
+pygame.mixer.pre_init(44100, -16, 1, 512)  # fixes delay in play
 pygame.init()
 # set screen width/height and caption
 size = [800, 800]
