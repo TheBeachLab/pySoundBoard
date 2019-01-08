@@ -14,6 +14,7 @@ pygame.display.set_caption('pySoundBoard')
 rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
 print(spacing)
+
 # generate sound objects
 for i in range(rows):
     for j in range(rows):
