@@ -5,7 +5,7 @@ import pygame
 
 # variables
 size = [800, 800]
-rows = 4  # 10 max
+rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
 print(spacing)
 
@@ -55,17 +55,23 @@ clock = pygame.time.Clock()
 # Loop until the user clicks close button
 done = False
 while done == False:
+    # clear the screen before drawing
+    screen.fill((30, 30, 30))
     # write event handlers here
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
-    # clear the screen before drawing
-    screen.fill((30, 30, 30))
+        elif event.type == pygame.MOUSEBUTTONDOWN:
+            pos = pygame.mouse.get_pos()
+            for elem in data:
+                if elem['rectobj'].collidepoint(pos):
+                    elem['soundobj'].play()
+                    pygame.draw.rect(screen, (255, 0, 0), (elem['coord'][0]-6,
+                                                           elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 3)
     # write game logic here
-    x, y = pygame.mouse.get_pos()
+    pos = pygame.mouse.get_pos()
     for elem in data:
-        if elem['rectobj'].collidepoint(x, y):
-            elem['soundobj'].play()
+        if elem['rectobj'].collidepoint(pos):
             pygame.draw.rect(screen, elem['bordercolor'], (elem['coord'][0]-6,
                                                            elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 1)
     # write draw code here
