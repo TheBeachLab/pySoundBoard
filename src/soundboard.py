@@ -39,8 +39,8 @@ for i in range(rows):
             'textobj': fontObj.render(str(i)+str(j), False, (0, 0, 0)),
             'textcoords': (spacing*(2*i+1.5), spacing*(2*j+1.5)),
             'color': (150, 150, 150),
-            'bordecolor': (255, 255, 0),
-            'borderzise': (spacing+12, spacing+12),
+            'bordercolor': (255, 255, 0),
+            'bordersize': (spacing+12, spacing+12),
             'loop': False
         })
 
@@ -66,8 +66,8 @@ while done == False:
     for elem in data:
         if elem['rectobj'].collidepoint(x, y):
             elem['soundobj'].play()
-            pygame.draw.rect(screen, (255, 255, 0), [
-                             elem['coord'][0]-6, elem['coord'][1]-6, spacing+12, spacing+12], 1)
+            pygame.draw.rect(screen, elem['bordercolor'], (elem['coord'][0]-6,
+                                                           elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 1)
     # write draw code here
     screen.blit(logo, logoRect)
     for elem in data:
