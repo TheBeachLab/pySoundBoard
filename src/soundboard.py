@@ -31,7 +31,8 @@ for i in range(rows):
             'column': i,
             'row': j,
             'text': 'empty',
-            'sound': 'sounds/fallback.wav',
+            'path': 'sounds/fallback.wav',
+            'soundobj': pygame.mixer.Sound('sounds/fallback.wav'),
             'coord': (spacing*(2*i+1), spacing*(2*j+1)),
             'size': (spacing, spacing),
             'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
@@ -64,7 +65,7 @@ while done == False:
     x, y = pygame.mouse.get_pos()
     for elem in data:
         if elem['rectobj'].collidepoint(x, y):
-            # sound_{i}{j}.play()
+            elem['soundobj'].play()
             pygame.draw.rect(screen, (255, 255, 0), [
                              elem['coord'][0]-6, elem['coord'][1]-6, spacing+12, spacing+12], 1)
     # write draw code here
