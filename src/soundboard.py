@@ -2,12 +2,12 @@
 # being i row number and j column number (starting at 0)
 
 import pygame
+from pygame.locals import *
 
 # variables
 size = [800, 800]
 rows = 4  # 10 max
 spacing = int(size[0]/(1+2*rows))
-print(spacing)
 
 # initialize game engine
 pygame.mixer.pre_init(44100, -16, 1, 512)  # fixes delay in play
@@ -62,8 +62,7 @@ def makelogo():
     logo = fontLogo.render('pySoundboard', True, (55, 55, 55))
     logoRect = logo.get_rect()
     logoRect.midright = (spacing*(2*rows), size[1]-spacing/2)
-    print(logo)
-    return (logo, logoRect, logoRect.midright)
+    return (logo, logoRect)
 
 
 # make the initial set of objects
@@ -74,6 +73,8 @@ logo = makelogo()
 # initialize clock. used later in the loop.
 clock = pygame.time.Clock()
 
+paused = False
+
 # Loop until the user clicks close button
 done = False
 while done == False:
@@ -83,13 +84,27 @@ while done == False:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             done = True
+        elif event.type == KEYDOWN:
+            if event.key == K_ESCAPE:
+                done = True
+            if event.key == K_f:
+                pygame.mixer.fadeout(3000)
+            elif event.key == K_p:
+                if paused == False:
+                    pygame.mixer.pause()
+                    paused = True
+                else:
+                    pygame.mixer.unpause()
+                    paused = False
+            elif event.key == K_s:
+                pygame.mixer.stop()
         elif event.type == pygame.MOUSEBUTTONDOWN:
             pos = pygame.mouse.get_pos()
             for elem in data:
                 if elem['rectobj'].collidepoint(pos):
                     elem['soundobj'].play()
-                    pygame.draw.rect(screen, (255, 0, 0), (elem['coord'][0]-6,
-                                                           elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 3)
+                    pygame.draw.rect(screen, (255, 100, 0), (elem['coord'][0]-6,
+                                                             elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 5)
     # write game logic here
     pos = pygame.mouse.get_pos()
     for elem in data:
