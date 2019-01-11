@@ -1,7 +1,7 @@
 sounds/1000k.ogg
 sounds/500k.ogg
-sounds/250k.ogg
 sounds/64k.ogg
+sounds/fallback.wav
 sounds/32k.ogg
 sounds/fallback.wav
 sounds/fallback.wav
@@ -15,10 +15,10 @@ sounds/fallback.wav
 sounds/fallback.wav
 sounds/fallback.wav
 sounds/fallback.wav
+sounds/250k.ogg
 sounds/fallback.wav
 sounds/fallback.wav
-sounds/fallback.wav
-sounds/fallback.wav
+sounds/phone.ogg
 sounds/fallback.wav
 sounds/fallback.wav
 sounds/fallback.wav

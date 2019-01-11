@@ -54,21 +54,19 @@ def makebuttons():
     rows'''
     data = []
     n = 0
-    for i in range(rows):
-        for j in range(rows):
+    for j in range(rows):
+        for i in range(rows):
             data.append({
-                'column': i,
-                'row': j,
-                'text': 'empty',
                 'soundchannel': pygame.mixer.Channel(n),
                 'soundobj': pygame.mixer.Sound(paths[n]),
                 'coord': (spacing*(2*i+1), spacing*(2*j+1)),
                 'size': (spacing, spacing),
+                'path': paths[n],
                 'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
-                'textobj': fontObj.render(str(n), False, black),
+                'textobj': fontObj.render(str(n+1), False, black),
                 'textcoords': (spacing*(2*i+1.5), spacing*(2*j+1.5)),
-                'color': grey,
                 'bordercolor': orange,
+                'color': grey,
                 'bordersize': (spacing+12, spacing+12),
                 'loop': False
             })
@@ -133,7 +131,10 @@ while done == False:
         if elem['soundchannel'].get_busy():
             elem['color'] = yellow
         else:
-            elem['color'] = grey
+            if elem['path'] == 'sounds/fallback.wav':
+                elem['color'] = grey
+            else:
+                elem['color'] = green
         if elem['rectobj'].collidepoint(pos):
             pygame.draw.rect(screen, elem['bordercolor'], (elem['coord'][0]-6,
                                                            elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 1)
