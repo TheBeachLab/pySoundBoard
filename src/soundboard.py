@@ -1,3 +1,4 @@
+#!/usr/bin/python3
 # Place sounds in sounds folder in sound_ij.wav format
 # being i row number and j column number (starting at 0)
 
@@ -29,7 +30,7 @@ pygame.init()
 pygame.mixer.set_num_channels(rows**2)
 
 # set screen width/height and caption
-screen = pygame.display.set_mode(size)  # , pygame.NOFRAME
+screen = pygame.display.set_mode(size, pygame.NOFRAME)
 pygame.display.set_caption('pySoundBoard')
 
 # init fonts

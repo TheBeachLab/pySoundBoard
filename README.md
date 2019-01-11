@@ -10,3 +10,4 @@ A simple Pygame sound board for adding sound effects while recording podcasts. T
 * `S` Stop all sounds
 * `F` Fadeout all sounds (3 seconds)
 * `ESC` Exit
+* `Alt`+`Click` To drag window (in Linux)
