@@ -6,7 +6,7 @@ from pygame.locals import *
 
 # variables
 size = [800, 800]
-rows = 4  # 10 max
+rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
 
 # initialize game engine
@@ -37,13 +37,14 @@ def makebuttons():
     '''generate sound button objects according to the number of
     rows'''
     data = []
+    n = 0
     for i in range(rows):
         for j in range(rows):
             data.append({
                 'column': i,
                 'row': j,
                 'text': 'empty',
-                'soundobj': pygame.mixer.Sound(paths[i+j]),
+                'soundobj': pygame.mixer.Sound(paths[n]),
                 'coord': (spacing*(2*i+1), spacing*(2*j+1)),
                 'size': (spacing, spacing),
                 'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
@@ -54,6 +55,7 @@ def makebuttons():
                 'bordersize': (spacing+12, spacing+12),
                 'loop': False
             })
+            n += 1
     return data
 
 
