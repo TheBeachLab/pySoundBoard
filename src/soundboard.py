@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 # variables
-size = [800, 800]
+size = [600, 600]
 rows = 6  # 10 max
 spacing = int(size[0]/(1+2*rows))
 
