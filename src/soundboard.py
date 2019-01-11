@@ -5,7 +5,7 @@ import pygame
 
 # variables
 size = [800, 800]
-rows = 6  # 10 max
+rows = 4  # 10 max
 spacing = int(size[0]/(1+2*rows))
 print(spacing)
 
@@ -22,9 +22,11 @@ fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
 fontObj = pygame.font.Font('res/Hyperspace.otf', int(spacing/2.5))
 
 paths = []
-# generate paths
-for n in range(rows**2):
-    paths.append('sounds/fallback.wav')
+# read rows**2 lines of paths from file
+with open("paths.txt") as myfile:
+    paths = [next(myfile) for x in range(rows**2)]
+# remove white space
+paths = [line.rstrip('\n') for line in paths]
 
 # init the soundboard data (list of dictionaries)
 data = []
