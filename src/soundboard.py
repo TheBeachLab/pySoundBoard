@@ -21,6 +21,11 @@ pygame.display.set_caption('pySoundBoard')
 fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
 fontObj = pygame.font.Font('res/Hyperspace.otf', int(spacing/2.5))
 
+paths = []
+# generate paths
+for n in range(rows**2):
+    paths.append('sounds/fallback.wav')
+
 # init the soundboard data (list of dictionaries)
 data = []
 
@@ -31,8 +36,7 @@ for i in range(rows):
             'column': i,
             'row': j,
             'text': 'empty',
-            'path': 'sounds/fallback.wav',
-            'soundobj': pygame.mixer.Sound('sounds/fallback.wav'),
+            'soundobj': pygame.mixer.Sound(paths[i+j]),
             'coord': (spacing*(2*i+1), spacing*(2*j+1)),
             'size': (spacing, spacing),
             'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
