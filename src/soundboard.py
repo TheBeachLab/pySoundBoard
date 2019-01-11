@@ -13,6 +13,9 @@ spacing = int(size[0]/(1+2*rows))
 pygame.mixer.pre_init(44100, -16, 1, 512)  # fixes delay in play
 pygame.init()
 
+# init channels
+pygame.mixer.set_num_channels(rows**2)
+
 # set screen width/height and caption
 screen = pygame.display.set_mode(size)  # , pygame.NOFRAME
 pygame.display.set_caption('pySoundBoard')
@@ -44,14 +47,15 @@ def makebuttons():
                 'column': i,
                 'row': j,
                 'text': 'empty',
+                'soundchannel': pygame.mixer.Channel(n),
                 'soundobj': pygame.mixer.Sound(paths[n]),
                 'coord': (spacing*(2*i+1), spacing*(2*j+1)),
                 'size': (spacing, spacing),
                 'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
-                'textobj': fontObj.render(str(i)+str(j), False, (0, 0, 0)),
+                'textobj': fontObj.render(str(n), False, (0, 0, 0)),
                 'textcoords': (spacing*(2*i+1.5), spacing*(2*j+1.5)),
                 'color': (150, 150, 150),
-                'bordercolor': (255, 255, 0),
+                'bordercolor': (252, 110, 81),
                 'bordersize': (spacing+12, spacing+12),
                 'loop': False
             })
@@ -61,7 +65,7 @@ def makebuttons():
 
 def makelogo():
     # draw logo according to the size of the buttons
-    logo = fontLogo.render('pySoundboard', True, (55, 55, 55))
+    logo = fontLogo.render('pySoundboard', True, (79, 193, 233))
     logoRect = logo.get_rect()
     logoRect.midright = (spacing*(2*rows), size[1]-spacing/2)
     return (logo, logoRect)
@@ -104,12 +108,19 @@ while done == False:
             pos = pygame.mouse.get_pos()
             for elem in data:
                 if elem['rectobj'].collidepoint(pos):
-                    elem['soundobj'].play()
-                    pygame.draw.rect(screen, (255, 100, 0), (elem['coord'][0]-6,
-                                                             elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 5)
+                    if elem['soundchannel'].get_busy():
+                        elem['soundchannel'].stop()
+                    else:
+                        elem['soundchannel'].play(elem['soundobj'])
+                        pygame.draw.rect(screen, (237, 85, 101), (elem['coord'][0]-6,
+                                                                  elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 5)
     # write game logic here
     pos = pygame.mouse.get_pos()
     for elem in data:
+        if elem['soundchannel'].get_busy():
+            elem['color'] = (255, 206, 84)
+        else:
+            elem['color'] = (150, 150, 150)
         if elem['rectobj'].collidepoint(pos):
             pygame.draw.rect(screen, elem['bordercolor'], (elem['coord'][0]-6,
                                                            elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 1)

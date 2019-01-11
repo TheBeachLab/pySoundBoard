@@ -10,7 +10,8 @@ The goal is to create something similar to [Farrago](https://rogueamoeba.com/far
 ![](screenshots/screenshot.png)
 
 ## Usage
-* `P` toggle Pause/Unpause
+* `Click` toggle Play/Stop
+* `P` toggle Pause/Unpause all sounds
 * `S` Stop all sounds
 * `F` Fadeout all sounds (3 seconds)
 * `ESC` Exit
