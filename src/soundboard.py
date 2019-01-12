@@ -7,20 +7,28 @@ from pygame.locals import *
 
 # variables
 size = [600, 600]
-rows = 6  # 10 max
+rows = 5  # 10 max
 spacing = int(size[0]/(1+2*rows))
+fadein = 1000
+fadeout = 3000
+offset12 = spacing + 12
+leftB = 1
+rightB = 3
 
 # colors
 red = (237, 85, 101)
 orange = (252, 110, 81)
 yellow = (255, 206, 84)
+yellow2 = (246, 187, 66)
 green = (160, 212, 104)
+green2 = (140, 193, 82)
 turquoise = (72, 207, 173)
 blue = (79, 193, 233)
 purple = (93, 156, 236)
 black = (0, 0, 0)
 dark = (30, 30, 30)
 grey = (150, 150, 150)
+grey2 = (20, 20, 20)
 
 # initialize game engine
 pygame.mixer.pre_init(44100, -16, 1, 512)  # fixes delay in play
@@ -65,9 +73,7 @@ def makebuttons():
                 'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
                 'textobj': fontObj.render(str(n+1), False, black),
                 'textcoords': (spacing*(2*i+1.5), spacing*(2*j+1.5)),
-                'bordercolor': orange,
                 'color': grey,
-                'bordersize': (spacing+12, spacing+12),
                 'loop': False
             })
             n += 1
@@ -97,6 +103,7 @@ done = False
 while done == False:
     # clear the screen before drawing
     screen.fill(dark)
+    pygame.draw.rect(screen, grey2, (0, 0, size[0], size[1]), 1)
     # write event handlers here
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -115,16 +122,31 @@ while done == False:
                     paused = False
             elif event.key == K_s:
                 pygame.mixer.stop()
-        elif event.type == pygame.MOUSEBUTTONDOWN:
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == leftB:
             pos = pygame.mouse.get_pos()
             for elem in data:
                 if elem['rectobj'].collidepoint(pos):
                     if elem['soundchannel'].get_busy():
                         elem['soundchannel'].stop()
+                        pygame.draw.rect(screen, red, (elem['coord'][0]-6,
+                                                       elem['coord'][1]-6, offset12, offset12), 5)
                     else:
                         elem['soundchannel'].play(elem['soundobj'])
                         pygame.draw.rect(screen, red, (elem['coord'][0]-6,
-                                                       elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 5)
+                                                       elem['coord'][1]-6, offset12, offset12), 5)
+        elif event.type == pygame.MOUSEBUTTONDOWN and event.button == rightB:
+            pos = pygame.mouse.get_pos()
+            for elem in data:
+                if elem['rectobj'].collidepoint(pos):
+                    if elem['soundchannel'].get_busy():
+                        elem['soundchannel'].fadeout(fadeout)
+                        pygame.draw.rect(screen, red, (elem['coord'][0]-6,
+                                                       elem['coord'][1]-6, offset12, offset12), 5)
+                    else:
+                        elem['soundchannel'].play(
+                            elem['soundobj'], fade_ms=fadein)
+                        pygame.draw.rect(screen, red, (elem['coord'][0]-6,
+                                                       elem['coord'][1]-6, offset12, offset12), 5)
     # write game logic here
     pos = pygame.mouse.get_pos()
     for elem in data:
@@ -136,8 +158,8 @@ while done == False:
             else:
                 elem['color'] = green
         if elem['rectobj'].collidepoint(pos):
-            pygame.draw.rect(screen, elem['bordercolor'], (elem['coord'][0]-6,
-                                                           elem['coord'][1]-6, elem['bordersize'][0], elem['bordersize'][1]), 1)
+            pygame.draw.rect(screen, orange, (elem['coord'][0]-6,
+                                              elem['coord'][1]-6, offset12, offset12), 1)
     # write draw code here
     screen.blit(logo[0], logo[1])
     for elem in data:
