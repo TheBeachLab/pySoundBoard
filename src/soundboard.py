@@ -1,4 +1,4 @@
-#!/usr/bin/python3
+#!/usr/bin/env python3
 # Place sounds in sounds folder in sound_ij.wav format
 # being i row number and j column number (starting at 0)
 

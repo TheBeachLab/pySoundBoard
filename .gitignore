@@ -5,6 +5,8 @@ __pycache__/
 
 # ignore
 ignore/
+.vscode/
+*.pyw
 
 # C extensions
 *.so
