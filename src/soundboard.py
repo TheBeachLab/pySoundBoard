@@ -6,8 +6,8 @@ import pygame
 from pygame.locals import *
 
 # variables
-size = [700, 700]
-rows = 8  # 10 max
+size = [900, 900]
+rows = 7  # 10 max
 spacing = int(size[0]/(1+2*rows))
 fadein = 1000
 fadeout = 3000
@@ -26,6 +26,7 @@ turquoise = (72, 207, 173)
 blue = (79, 193, 233)
 purple = (93, 156, 236)
 black = (0, 0, 0)
+white = (255, 255, 255)
 dark = (30, 30, 30)
 grey = (150, 150, 150)
 grey2 = (20, 20, 20)
@@ -42,9 +43,9 @@ screen = pygame.display.set_mode(size, pygame.NOFRAME)
 pygame.display.set_caption('pySoundBoard')
 
 # init fonts
-fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
+fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/2))
 fontObj = pygame.font.Font('res/Hyperspace.otf', int(spacing/2.5))
-fontnames = pygame.font.Font('res/Hyperspace.otf', int(spacing/5.5))
+fontnames = pygame.font.Font('res/pragmata.otf', 12)
 
 
 def readpaths():
@@ -73,7 +74,9 @@ def makebuttons():
                 'path': paths[n],
                 'rectobj': pygame.Rect(spacing*(2*i+1), spacing*(2*j+1), spacing, spacing),
                 'textobj': fontObj.render(str(n+1), False, black),
-                'textcoords': (spacing*(2*i+1.5), spacing*(2*j+1.5)),
+                'textname': fontnames.render(paths[n][7:][:-4].upper(), True, white),
+                'textcoords': (spacing*(2*i+1.3), spacing*(2*j+1.3)),
+                'namecoords': (spacing*(2*i+1), spacing*(2*j+2.2)),
                 'color': grey,
                 'loop': False
             })
@@ -85,7 +88,7 @@ def makelogo():
     # draw logo according to the size of the buttons
     logo = fontLogo.render('pySoundboard', True, blue)
     logoRect = logo.get_rect()
-    logoRect.midright = (spacing*(2*rows), size[1]-spacing/2)
+    logoRect.midright = (spacing*(2*rows), spacing/2)
     return (logo, logoRect)
 
 
@@ -170,6 +173,7 @@ while done == False:
     for elem in data:
         pygame.draw.rect(screen, elem['color'], elem['rectobj'])
         screen.blit(elem['textobj'], elem['textcoords'])
+        screen.blit(elem['textname'], elem['namecoords'])
 
     # display what’s drawn. this might change.
     pygame.display.update()
