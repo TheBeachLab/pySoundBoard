@@ -23,6 +23,7 @@ Buttons with sounds loaded will light in green. Buttons with no sounds loaded wi
 * `Right Click` Play with fade in (1s) / Stop with fade out (3s)
 * `P` toggle Pause/Unpause all sounds
 * `S` Stop all sounds
+* `R` Reload all sounds
 * `F` Fadeout all sounds (3s)
 * `ESC` Exit
 * `Alt`+`Click` To drag window (in Linux)

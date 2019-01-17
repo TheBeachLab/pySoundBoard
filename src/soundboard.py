@@ -44,6 +44,7 @@ pygame.display.set_caption('pySoundBoard')
 # init fonts
 fontLogo = pygame.font.Font('res/Kathen.otf', int(spacing/1.5))
 fontObj = pygame.font.Font('res/Hyperspace.otf', int(spacing/2.5))
+fontnames = pygame.font.Font('res/Hyperspace.otf', int(spacing/5.5))
 
 
 def readpaths():
@@ -103,6 +104,7 @@ done = False
 while done == False:
     # clear the screen before drawing
     screen.fill(dark)
+    # draw border
     pygame.draw.rect(screen, grey2, (0, 0, size[0], size[1]), 1)
     # write event handlers here
     for event in pygame.event.get():
@@ -122,6 +124,9 @@ while done == False:
                     paused = False
             elif event.key == K_s:
                 pygame.mixer.stop()
+            elif event.key == K_r:
+                paths = readpaths()
+                data = makebuttons()
         elif event.type == pygame.MOUSEBUTTONDOWN and event.button == leftB:
             pos = pygame.mouse.get_pos()
             for elem in data:
