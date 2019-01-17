@@ -9,13 +9,20 @@
 
 ## Installing and executing the program
 
-Place your sounds in the sound folder. Edit the file named `paths.txt` to point to sound files (Some sample sounds have been included). The soundboard will read this file and load sounds accordingly. Run the following:
+If you want to use your own sounds, place them in the sound folder. Edit the file named `paths.txt` to point to sound files (sample sounds have been included). The soundboard will read this file and load sounds accordingly. Install `pygame` if you haven't done it yet:
+
+```bash
+pip install pygame
+```
+
+And run the following:
 
 ```bash
 cd src
 python3 soundboard.py
 ```
-Buttons with sounds loaded will light in green. Buttons with no sounds loaded will remain in grey. When you hover a button an orange outline will appear. Finally when a sound is playing the button's color will stay in yellow color.
+
+Buttons with sounds loaded will light up in green. Buttons with no sounds loaded will remain in grey. When you hover a button, an orange outline will appear. Finally, when a sound is playing the button's color will change to yellow color.
 
 ## Usage
 
