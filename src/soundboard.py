@@ -6,8 +6,8 @@ import pygame
 from pygame.locals import *
 
 # variables
-size = [600, 600]
-rows = 5  # 10 max
+size = [700, 700]
+rows = 8  # 10 max
 spacing = int(size[0]/(1+2*rows))
 fadein = 1000
 fadeout = 3000
