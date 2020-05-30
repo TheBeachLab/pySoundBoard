@@ -6,7 +6,7 @@ import pygame
 from pygame.locals import *
 
 # variables
-size = [900, 900]
+size = [500, 500]
 rows = 7  # 10 max
 spacing = int(size[0]/(1+2*rows))
 fadein = 1000
