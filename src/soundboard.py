@@ -32,7 +32,7 @@ grey = (150, 150, 150)
 grey2 = (20, 20, 20)
 
 # initialize game engine
-pygame.mixer.pre_init(44100, -16, 1, 512)  # fixes delay in play
+pygame.mixer.pre_init(44100, -16, 2, 512)  # fixes delay in play
 pygame.init()
 
 # init channels
